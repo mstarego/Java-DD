@@ -7,11 +7,12 @@ public class Item {
 	 * durability - number of uses until item breaks/ is lost
 	 * heldBonus - true if it's a constant bonus, false if it's a one-time activated bonus
 	 */
-	private int atkValue, defValue, healValue, durability;
+	private double atkValue, defValue, healValue;
+	public int durability;
 	private boolean heldBonus;
 	
 	
-	public Item(int atk, int def, int heal, int dur, boolean bonus) {
+	public Item(double atk, double def, double heal, int dur, boolean bonus) {
 		atkValue = atk;
 		defValue = def;
 		healValue = heal;
@@ -20,40 +21,40 @@ public class Item {
 		
 	}
 	
-	public int getAtkValue() {
+	public double getAtkValue() {
 		return atkValue;
 	}
-	public void setAtkValue(int atk) {
+	public void setAtkValue(double atk) {
 		atkValue = atk;
 	}
-	public void increaseAtkValue(int atk) {
+	public void increaseAtkValue(double atk) {
 		atkValue += atk;
 	}
-	public void decreaseAtkValue(int atk) {
+	public void decreaseAtkValue(double atk) {
 		atkValue -= atk;
 	}
-	public int getDefValue() {
+	public double getDefValue() {
 		return defValue;
 	}
-	public void setDefValue(int def) {
+	public void setDefValue(double def) {
 		defValue = def;
 	}
-	public void increaseDefValue(int def) {
+	public void increaseDefValue(double def) {
 		defValue += def;
 	}
-	public void decreaseDefValue(int def) {
+	public void decreaseDefValue(double def) {
 		defValue -= def;
 	}
-	public int getHealValue() {
+	public double getHealValue() {
 		return healValue;
 	}
-	public void setHealValue(int heal) {
+	public void setHealValue(double heal) {
 		healValue = heal;
 	}
-	public void increaseHealValue(int heal) {
+	public void increaseHealValue(double heal) {
 		healValue += heal;
 	}
-	public void decreaseHealValue(int heal) {
+	public void decreaseHealValue(double heal) {
 		healValue -= heal;
 	}
 	public int getDurabilityValue() {

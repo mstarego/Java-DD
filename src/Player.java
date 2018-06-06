@@ -1,16 +1,12 @@
 
 public class Player extends Character {
-	private Weapon equippedWeapon;
-	private Armor equippedArmor;
+
 	
-	public Player(Weapon w, Armor a, HealthItem h, Shield s, Tool t) {
-		
+	public Player(double startingXPos, double startingYPos, double hp, double str, double spd, double tgh, double agi, double dxt, Item w, Item a, Item h, Item s, Item t) {
+		super(startingXPos, startingYPos, hp, str, spd, tgh, agi, dxt, w, a, h, s, t);
 	}
-	@Override
-	public void attack() {
-		// TODO Auto-generated method stub
-		
-	}
+	
+	
 
 	@Override
 	public void ability() {

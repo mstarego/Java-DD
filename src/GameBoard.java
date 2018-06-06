@@ -5,16 +5,16 @@ import java.util.*;
 import javax.swing.*;
 import javax.swing.Timer;
 
-public class GameBoard extends JPanel implements MouseListener {
-private static final int WIDTH = 600;
-private static final int HEIGHT = 600;
+public class GameBoard extends JPanel {
+private static final int WIDTH = 615;
+private static final int HEIGHT = 615;
 private static JFrame frame;
 private Timer t;
 private ArrayList<Space> spaces = new ArrayList<Space>();
 	public GameBoard() {
 		
-		for(int x = 0; x < 1000; x += 25) {
-			for(int y = 0; y < 1000; y += 25) {
+		for(int x = 0; x < 600; x += 25) {
+			for(int y = 0; y < 575; y += 25) {
 				spaces.add(new Space(x, y, 25, 25));
 			}
 		}

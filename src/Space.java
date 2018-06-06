@@ -43,10 +43,10 @@ public class Space extends Rectangle{
 		difficulty = d;
 	}
 	public double getXCenter() {
-		return xCenter;
+		return ((double)xPos) + width / 2.0;
 	}
 	public double getYCenter() {
-		return yCenter;
+		return ((double)yPos) + height / 2.0;
 	}
 	public String toString() {
 		return x + "	" + y + "	" + width + "	" + height;
