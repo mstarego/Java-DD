@@ -5,12 +5,25 @@ public abstract class Character {
 
 	private double strength, speed, toughness, agility, dexterity, health, xPos, yPos;
 	private Point point;
-	private Item equippedWeapon; 
+	private Item equippedWeapon;
 	private Armor equippedArmor;
 	private Heal equippedHeal;
 	private Shield equippedShield;
 	private Tool equippedTool;
 	public ArrayList<Item> inventory;
+	
+	public Character(double startingXPos, double startingYPos, double hp, double str, double spd, double tgh, double agi, double dxt) {
+		xPos = startingXPos;
+		yPos = startingYPos;
+		health = hp;
+		strength = str;
+		speed = spd;
+		toughness = tgh;
+		agility = agi;
+		dexterity = dxt;
+		inventory = new ArrayList<Item>();
+	}
+
 	
 	public Character(double startingXPos, double startingYPos, double hp, double str, double spd, double tgh, double agi, double dxt, Weapon w, Armor a, Heal h, Shield s, Tool t) {
 		xPos = startingXPos;
