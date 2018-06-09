@@ -15,16 +15,17 @@ private Player p1;
 private Die d25;
 private Point2D point;
 
-private ArrayList<Space> spaces = new ArrayList<Space>();
+public static ArrayList<Space> spaces = new ArrayList<Space>();
 	public GameBoard() {
+		t = new Timer(25, null);
 		d25 = new Die(25);
 		for(int x = 0; x < 600; x += 25) {
 			for(int y = 0; y < 575; y += 25) {
 				spaces.add(new Space(x, y, 25, 25));
 			}
 		}
-		p1 = new Player(spaces.get(0).getXCenter(), spaces.get(0).getYCenter(), d25.roll(), d25.roll(), d25.roll(), d25.roll(), d25.roll(), d25.roll());
-		
+		p1 = new Player(Player.Race.DWARF, Player.Class.BARBARIAN);
+		 
 //		System.out.println(spaces);
 		addMouseListener(new MouseListener() {
 			
@@ -40,15 +41,19 @@ private ArrayList<Space> spaces = new ArrayList<Space>();
 			public void mousePressed(MouseEvent e) {
 				System.out.println("(" + p1.getXPos() + ", " + p1.getYPos() + ")");
 				for(Space space : spaces) {
-					if(Math.abs(e.getX() - p1.getXPos()) < 50 && Math.abs(e.getY() - p1.getYPos() ) < 50){
+					//only able to move to adjacent squares
+					if(Math.abs(e.getX() - p1.getXPos()) < 37.5 && Math.abs(e.getY() - p1.getYPos() ) < 37.5){
 					if(space.contains(new Point2D.Double(e.getX(), e.getY()))) {
 						p1.setXPos(space.getXCenter());
 						p1.setYPos(space.getYCenter());
+						if(space.undiscovered) {
+							
+						}
+						
 					}
 					}
 				}
 				
-				System.out.println("(" + p1.getXPos() + ", " + p1.getYPos() + ")");
 				repaint();
 			}
 			@Override

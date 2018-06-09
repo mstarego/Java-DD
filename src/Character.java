@@ -1,54 +1,46 @@
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 public abstract class Character {
 
-	private double strength, speed, toughness, agility, dexterity, health, xPos, yPos;
+	private double strength, speed, constitution, intelligence, wisdom, charisma, dexterity, health, xPos, yPos;
+	private int gold;
 	private Point point;
-	private Item equippedWeapon;
+	private Weapon equippedWeapon;
 	private Armor equippedArmor;
 	private Heal equippedHeal;
 	private Shield equippedShield;
 	private Tool equippedTool;
+	Die d25 = new Die(25);
 	public ArrayList<Item> inventory;
 	
-	public Character(double startingXPos, double startingYPos, double hp, double str, double spd, double tgh, double agi, double dxt) {
+	public Character() {
+		xPos = 2.5;
+		yPos = 2.5;
+		health = 0;
+		strength = 0;
+		speed = 0;
+		constitution = 0;
+		intelligence = 0;
+		dexterity = 0;
+		gold = 0;
+		inventory = new ArrayList<Item>();
+	}
+	
+	public Character(double startingXPos, double startingYPos, double hp, double str, double spd, double tgh, double agi, double dxt, int startingGold) {
 		xPos = startingXPos;
 		yPos = startingYPos;
 		health = hp;
 		strength = str;
 		speed = spd;
-		toughness = tgh;
-		agility = agi;
+		constitution = tgh;
+		intelligence = agi;
 		dexterity = dxt;
+		gold = startingGold;
 		inventory = new ArrayList<Item>();
 	}
 
-	
-	public Character(double startingXPos, double startingYPos, double hp, double str, double spd, double tgh, double agi, double dxt, Weapon w, Armor a, Heal h, Shield s, Tool t) {
-		xPos = startingXPos;
-		yPos = startingYPos;
-		health = hp;
-		strength = str;
-		speed = spd;
-		toughness = tgh;
-		agility = agi;
-		dexterity = dxt;
-		inventory = new ArrayList<Item>();
-		inventory.add(w);
-		inventory.add(a);
-		inventory.add(h);
-		inventory.add(s);
-		inventory.add(t);
-		equippedWeapon = w;
-		equippedArmor = a;
-		equippedHeal = h;
-		equippedShield = s;
-		equippedTool = t;
-		
-		
-		
-	}
 	public double getXPos() {
 		return xPos;
 	}
@@ -103,17 +95,17 @@ public abstract class Character {
 	public void decreaseStrength(double str) {
 		strength -= str;
 	}
-	public double getToughness() {
-		return toughness;
+	public double getConstitution() {
+		return constitution;
 	}
-	public void setToughness(double tgh) {
-		toughness = tgh;
+	public void setConstitution(double con) {
+		constitution = con;
 	}
-	public void increaseToughness(double tgh) {
-		toughness += tgh;
+	public void increaseConstitution(double con) {
+		constitution += con;
 	}
-	public void decreaseToughness(double tgh) {
-		toughness -= tgh;
+	public void decreaseConstitution(double con) {
+		constitution -= con;
 	}
 	public double getSpeed() {
 		return speed;
@@ -137,61 +129,111 @@ public abstract class Character {
 		dexterity += dxt;
 	}
 	public void decreaseDexterity(double dxt) {
-		agility -= dxt;
+		dexterity -= dxt;
 	}
-	public double getAgility() {
-		return agility;
+	public double getIntelligence() {
+		return intelligence;
 	}
-	public void setAgility(double agi) {
-		agility = agi;
+	public void setIntelligence(double i) {
+		intelligence = i;
 	}
-	public void increaseAgility(double agi) {
-		agility += agi;
+	public void increaseIntelligence(double i) {
+		intelligence += i;
 	}
-	public void decreaseAgility(double agi) {
-		agility -= agi;
+	public void decreaseIntelligence(double i) {
+		intelligence -= i;
 	}
-	public Item getEquippedWeapon() {
+	public double getWisdom() {
+		return wisdom;
+	}
+	public void setWisdom(double w) {
+		wisdom = w;
+	}
+	public void increaseWisdom(double w) {
+		wisdom += w;
+	}
+	public void decreaseWisdom(double w) {
+		wisdom -= w;
+	}
+	public double getCharisma() {
+		return charisma;
+	}
+	public void setCharisma(double c) {
+		charisma = c;
+	}
+	public void increaseCharisma(double c) {
+		charisma += c;
+	}
+	public void decreaseCharisma(double c) {
+		charisma -= c;
+	}
+	public int getGoldBalance() {
+		return gold;
+	}
+	public void setGoldBalance(int g) {
+		gold = g;
+	}
+	public void increaseGoldBalance(int g) {
+		gold += g;
+	}
+	public void decreaseGoldBalance(int g) {
+		gold  -= g;
+	}
+	public Weapon getEquippedWeapon() {
 		return equippedWeapon;
 	}
 	public void setEquippedWeapon(Weapon w) {
 		equippedWeapon = w;
 	}
-	public Item getEquippedArmor() {
+	public Armor getEquippedArmor() {
 		return equippedArmor;
 	}
 	public void setEquippedArmor(Armor a) {
 		equippedArmor = a;
 	}
-	public Item getEquippedHeal() {
+	public Heal getEquippedHeal() {
 		return equippedHeal;
 	}
-	public void setEquippedHeal(Item h) {
-		equippedWeapon = h;
+	public void setEquippedHeal(Heal h) {
+		equippedHeal = h;
 	}
-	public Item getEquippedShield() {
+	public Shield getEquippedShield() {
 		return equippedShield;
 	}
 	public void setEquippedShield(Shield s) {
 		equippedShield = s;
 	}
-	public Item getEquippedTool() {
+	public Tool getEquippedTool() {
 		return equippedTool;
 	}
 	public void setEquippedTool(Tool t) {
 		equippedTool = t;
 	}
+	public Space getSpace() {
+		for(Space space : GameBoard.spaces) {
+		if(space.contains(new Point2D.Double(getXPos(), getYPos()))) {
+			return space;
+		}
+		}
+		return null;
+	}
 	public void attack(Character enemy) {
 		double dmg = getStrength() + equippedWeapon.getAtkValue();
 		damage(dmg, enemy);
 		
-	}	public abstract void ability();
+	}	
+	public abstract void ability();
 	public void damage(double damageDealt, Character enemy) {
-		double realDamage = damageDealt - (enemy.getToughness() + enemy.getEquippedArmor().getDefValue() + enemy.getEquippedShield().getDefValue())/ 3.0;
+		double realDamage = damageDealt - (enemy.getConstitution() + enemy.getEquippedArmor().getDefValue() + enemy.getEquippedShield().getDefValue())/ 3.0;
 		enemy.decreaseHealth(realDamage);
 	}
 	//move to player
-	public abstract boolean isTraversable(Space currentSpace);
+	public boolean isTraversable(Space currentSpace) {
+		if(getDexterity() >= currentSpace.getDifficulty()) {
+			return true;
+		}
+		return false;
+	}
 	
 	
 	

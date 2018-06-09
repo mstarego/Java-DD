@@ -5,6 +5,7 @@ public class Space extends Rectangle{
 	private int xPos, yPos;
 	private double width, height, xCenter, yCenter;
 	private int difficulty;
+	public boolean undiscovered = true;
 	public Space(int x, int y, int w, int h) {
 		super(x, y, w, h);
 		xPos = x;
@@ -48,6 +49,7 @@ public class Space extends Rectangle{
 	public double getYCenter() {
 		return ((double)yPos) + height / 2.0;
 	}
+	
 	public String toString() {
 		return x + "	" + y + "	" + width + "	" + height;
 	}
