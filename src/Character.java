@@ -81,7 +81,12 @@ public abstract class Character {
 		health += hp;
 	}
 	public void decreaseHealth(double hp) {
-		health -= hp;
+		if(getHealth() <= hp) {
+			health = 0;
+		}
+		else {
+			health -= hp;
+		}
 	}
 	public double getStrength() {
 		return strength;
@@ -205,7 +210,7 @@ public abstract class Character {
 	}
 	public Tool getEquippedTool() {
 		return equippedTool;
-	}
+	} 
 	public void setEquippedTool(Tool t) {
 		equippedTool = t;
 	}
@@ -218,13 +223,13 @@ public abstract class Character {
 		return null;
 	}
 	public void attack(Character enemy) {
-		double dmg = getStrength() + equippedWeapon.getAtkValue();
+		double dmg = getStrength();
 		damage(dmg, enemy);
 		
 	}	
 	public abstract void ability();
 	public void damage(double damageDealt, Character enemy) {
-		double realDamage = damageDealt - (enemy.getConstitution() + enemy.getEquippedArmor().getDefValue() + enemy.getEquippedShield().getDefValue())/ 3.0;
+		double realDamage = damageDealt - enemy.getConstitution() / 3.0;
 		enemy.decreaseHealth(realDamage);
 	}
 	//move to player

@@ -9,16 +9,19 @@ import javax.swing.Timer;
 public class GameBoard extends JPanel{
 private static final int WIDTH = 615;
 private static final int HEIGHT = 615;
-private static JFrame frame;
+public static JFrame frame;
 private Timer t;
 private Player p1;
+private Die d6;
 private Die d25;
+public Monster m;
 private Point2D point;
 
 public static ArrayList<Space> spaces = new ArrayList<Space>();
 	public GameBoard() {
 		t = new Timer(25, null);
 		d25 = new Die(25);
+		d6 = new Die(6);
 		for(int x = 0; x < 600; x += 25) {
 			for(int y = 0; y < 575; y += 25) {
 				spaces.add(new Space(x, y, 25, 25));
@@ -42,12 +45,19 @@ public static ArrayList<Space> spaces = new ArrayList<Space>();
 				System.out.println("(" + p1.getXPos() + ", " + p1.getYPos() + ")");
 				for(Space space : spaces) {
 					//only able to move to adjacent squares
-					if(Math.abs(e.getX() - p1.getXPos()) < 37.5 && Math.abs(e.getY() - p1.getYPos() ) < 37.5){
+					if(Math.abs(e.getX() - p1.getXPos()) < p1.getSpeed() + 12.5 && Math.abs(e.getY() - p1.getYPos() ) < p1.getSpeed() + 12.5){
 					if(space.contains(new Point2D.Double(e.getX(), e.getY()))) {
 						p1.setXPos(space.getXCenter());
 						p1.setYPos(space.getYCenter());
 						if(space.undiscovered) {
-							
+							if(d6.roll() == 1) {
+								System.out.println("A monster spotted you");
+								m = new Monster(p1.getXPos(), p1.getYPos());
+								do {
+									p1.battle(m);
+									m.battle(p1);
+								}while(p1.battleInProgress);
+							}
 						}
 						
 					}
@@ -86,6 +96,6 @@ public static ArrayList<Space> spaces = new ArrayList<Space>();
 		frame.setVisible(true);
 	}
 	
-
+	
 	
 }

@@ -4,6 +4,7 @@ import java.util.Scanner;
 	
 public class Player extends Character {
 	
+	public boolean battleInProgress;
 	ArrayList<Integer> rolls = new ArrayList<Integer>();
 	Die d6 = new Die(6);
 	Scanner input = new Scanner(System.in);
@@ -17,6 +18,7 @@ public class Player extends Character {
 	
 	public Player(Race r, Class c) {
 		super();
+		setHealth(100);
 		startingStats();
 		assignStats();
 		switch(r) {
@@ -128,10 +130,10 @@ public class Player extends Character {
 				pick = 0;
 			}			
 		}
-		if(getStrength() < 6) {
+		if(getStrength() < 3) {
 			System.out.println("Invalid. Reenter your value");
 		}
-	}while(getStrength() < 6);
+	}while(getStrength() < 3);
 		
 		System.out.print("Strength: " + getStrength() + "\nDexterity: " + getDexterity() +
 				"\nConstitution: " + getConstitution() + "\nIntelligence: " + getIntelligence() + "\nWisdom: " 
@@ -148,10 +150,10 @@ public class Player extends Character {
 				pick = 0;
 			}			
 		}
-		if(getDexterity() < 6) {
+		if(getDexterity() < 3) {
 			System.out.println("Invalid. Reenter your value");
 		}
-	}while(getDexterity() < 6);
+	}while(getDexterity() < 3);
 		
 		System.out.print("Strength: " + getStrength() + "\nDexterity: " + getDexterity() +
 				"\nConstitution: " + getConstitution() + "\nIntelligence: " + getIntelligence() + "\nWisdom: " 
@@ -168,10 +170,10 @@ public class Player extends Character {
 				pick = 0;
 			}			
 		}
-		if(getConstitution() < 6) {
+		if(getConstitution() < 3) {
 			System.out.println("Invalid. Reenter your value");
 		}
-	}while(getConstitution() < 6);
+	}while(getConstitution() < 3);
 	
 		System.out.print("Strength: " + getStrength() + "\nDexterity: " + getDexterity() +
 				"\nConstitution: " + getConstitution() + "\nIntelligence: " + getIntelligence() + "\nWisdom: " 
@@ -188,10 +190,10 @@ public class Player extends Character {
 				pick = 0;
 			}			
 		}
-		if(getIntelligence() < 6) {
+		if(getIntelligence() < 3) {
 			System.out.println("Invalid. Reenter your value");
 		}
-	}while(getIntelligence() < 6);
+	}while(getIntelligence() < 3);
 		
 		System.out.print("Strength: " + getStrength() + "\nDexterity: " + getDexterity() +
 				"\nConstitution: " + getConstitution() + "\nIntelligence: " + getIntelligence() + "\nWisdom: " 
@@ -208,10 +210,10 @@ public class Player extends Character {
 				pick = 0;
 			}			
 		}
-		if(getWisdom() < 6) {
+		if(getWisdom() < 3) {
 			System.out.println("Invalid. Reenter your value");
 		}
-	}while(getWisdom() < 6);
+	}while(getWisdom() < 3);
 	
 	
 	System.out.print("Strength: " + getStrength() + "\nDexterity: " + getDexterity() +
@@ -229,17 +231,35 @@ public class Player extends Character {
 			pick = 0;
 		}			
 	}
-	if(getCharisma() < 6) {
+	if(getCharisma() < 3) {
 		System.out.println("Invalid. Reenter your value");
 	}
-}while(getCharisma() < 6);
+}while(getCharisma() < 3);
 
 	System.out.print("Strength: " + getStrength() + "\nDexterity: " + getDexterity() +
 			"\nConstitution: " + getConstitution() + "\nIntelligence: " + getIntelligence() + "\nWisdom: " 
 			+ getWisdom() + "\nCharisma: " + getCharisma());
 	}
 
-	
+	public void battle(Monster enemy) {
+		battleInProgress = true;
+		System.out.println(getHealth() + "-" + enemy.getHealth() + "-" + getStrength() + "-" + enemy.getStrength());
+		attack(enemy);
+		System.out.println("Your Health: " + getHealth());
+		System.out.println("Enemy Health: " + enemy.getHealth());
+		if(getHealth() <= 0) {
+			battleInProgress = false;
+			GameBoard.frame.dispose();
+			System.out.println("You died:(");
+		}
+		else if(enemy.getHealth() <= 0) {
+			battleInProgress = false;
+			System.out.println("You defeated the monster");
+			System.out.println("The monster dropped " + enemy.getGoldBalance() + " gold");
+			increaseGoldBalance(enemy.getGoldBalance());
+			System.out.println(getGoldBalance());
+		}
+	}
 
 
 
