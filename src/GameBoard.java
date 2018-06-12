@@ -10,21 +10,26 @@ public class GameBoard extends JPanel{
 private static final int WIDTH = 615;
 private static final int HEIGHT = 615;
 public static JFrame frame;
-private Timer t;
 private Player p1;
 private Die d6;
 private Die d25;
+private Die d50;
 public Monster m;
 private Point2D point;
 
 public static ArrayList<Space> spaces = new ArrayList<Space>();
 	public GameBoard() {
-		t = new Timer(25, null);
 		d25 = new Die(25);
 		d6 = new Die(6);
+		d50 = new Die(50);
 		for(int x = 0; x < 600; x += 25) {
 			for(int y = 0; y < 575; y += 25) {
-				spaces.add(new Space(x, y, 25, 25));
+				if(d50.roll() == 1) {
+					spaces.add(new Space(x, y, 25, 25, Space.Type.VILLAGE));
+				}
+				else {
+				spaces.add(new Space(x, y, 25, 25, Space.Type.FOREST));
+				}
 			}
 		}
 		p1 = new Player(Player.Race.DWARF, Player.Class.BARBARIAN);
@@ -77,7 +82,7 @@ public static ArrayList<Space> spaces = new ArrayList<Space>();
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setBackground(Color.BLACK);
 		for(Space space : spaces) {
-			g2d.setPaint(Color.GREEN);
+			g2d.setPaint(space.getColor());
 			g2d.fill(space);
 			g2d.setPaint(Color.BLACK);
 			g2d.draw(space);

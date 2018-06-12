@@ -6,12 +6,27 @@ public class Space extends Rectangle{
 	private double width, height, xCenter, yCenter;
 	private int difficulty;
 	public boolean undiscovered = true;
-	public Space(int x, int y, int w, int h) {
+	public Color color = Color.GREEN;
+	public Type type;
+	public enum Type{
+		FOREST, VILLAGE;
+	}
+	public Space(int x, int y, int w, int h, Type t) {
 		super(x, y, w, h);
 		xPos = x;
 		yPos = y;
 		width = w;
 		height = h;
+		switch(t) {
+		case FOREST:
+			setColor(Color.GREEN);
+			type = t;
+			break;
+		case VILLAGE:
+			setColor(Color.LIGHT_GRAY);
+			type = t;
+			break;
+		}
 	}
 	public int getXPos() {
 		return xPos;
@@ -48,6 +63,15 @@ public class Space extends Rectangle{
 	}
 	public double getYCenter() {
 		return ((double)yPos) + height / 2.0;
+	}
+	public Color getColor() {
+		return color;
+	}
+	public void setColor(Color c) {
+		color = c;
+	}
+	public Type getType() {
+		return type;
 	}
 	
 	public String toString() {
